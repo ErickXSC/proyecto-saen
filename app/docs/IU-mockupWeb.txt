@@ -1,0 +1,267 @@
+import React, { useState } from 'react';
+import { 
+  Waves, 
+  Mail, 
+  Lock, 
+  Eye, 
+  EyeOff, 
+  CheckCircle2, 
+  User, 
+  ShieldCheck, 
+  ArrowRight, 
+  Sparkles, 
+  Loader2, 
+  CreditCard, 
+  QrCode, 
+  Bot 
+} from 'lucide-react';
+
+export default function App() {
+  // Role Tab State: 'admin' | 'alumno'
+  const [role, setRole] = useState('admin');
+  
+  // Form States
+  const [email, setEmail] = useState('carlosh@uttec.edu.mx');
+  const [password, setPassword] = useState('••••••••••••');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+  
+  // UX States
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
+
+  // Handle Login Submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    setLoading(true);
+    setSuccessMsg(false);
+
+    // Simulate API Auth Request
+    setTimeout(() => {
+      setLoading(false);
+      setSuccessMsg(true);
+    }, 1200);
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-slate-50 flex items-center justify-center p-0 md:p-6 lg:p-10 font-sans selection:bg-cyan-500 selection:text-white">
+      {/* MAIN WRAPPER CONTAINER */}
+      <div className="w-full max-w-6xl min-h-screen md:min-h-[640px] md:h-[85vh] bg-white md:rounded-3xl shadow-2xl shadow-blue-900/15 overflow-hidden flex flex-col md:flex-row border border-slate-100">
+        
+        {/* LEFT PANEL: BRANDING & FEATURES (Desktop split panel) */}
+        <div className="md:w-1/2 bg-gradient-to-br from-[#1E56A0] via-[#16427D] to-[#0D2D57] text-white p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
+          {/* Subtle Background Water Wave Gradients */}
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
+          
+          {/* Brand Header & Dynamic SVG Logo */}
+          <div className="relative z-10 flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#00A8CC] to-cyan-300 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+              <Waves className="w-7 h-7 text-white animate-pulse" />
+            </div>
+            <div>
+              <span className="text-2xl font-black tracking-wider text-white">SAEN</span>
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-cyan-200">Plataforma Acuática</p>
+            </div>
+          </div>
+
+          {/* Main Hero Copy */}
+          <div className="relative z-10 my-8 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-cyan-200 font-medium">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+              <span>Gestión Integral de Natación</span>
+            </div>
+            <h1 className="text-3xl lg:text-4xl font-extrabold leading-tight text-white tracking-tight">
+              Sistema Automatizado para Escuelas de Natación
+            </h1>
+            <p className="text-sm lg:text-base text-blue-100/90 leading-relaxed max-w-md">
+              Control total de accesos QR, asignación inteligente de carriles, seguimiento pedagógico y finanzas en tiempo real.
+            </p>
+          </div>
+
+          {/* Feature Highlights Grid */}
+          <div className="relative z-10 grid grid-cols-3 gap-3 pt-4 border-t border-white/15">
+            <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/10 hover:bg-white/15 transition">
+              <QrCode className="w-5 h-5 text-cyan-300 mb-1" />
+              <p className="text-xs font-bold text-white">Control QR</p>
+              <p className="text-[10px] text-blue-200">Acceso veloz</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/10 hover:bg-white/15 transition">
+              <CreditCard className="w-5 h-5 text-cyan-300 mb-1" />
+              <p className="text-xs font-bold text-white">Pagos</p>
+              <p className="text-[10px] text-blue-200">Automatizados</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/10 hover:bg-white/15 transition">
+              <Bot className="w-5 h-5 text-cyan-300 mb-1" />
+              <p className="text-xs font-bold text-white">IA SAEN</p>
+              <p className="text-[10px] text-blue-200">Asistente 24/7</p>
+            </div>
+          </div>
+
+          {/* Footer note inside panel */}
+          <div className="relative z-10 mt-6 text-[11px] text-blue-200/60 flex justify-between items-center">
+            <span>© 2026 SAEN Platform</span>
+            <span>v3.2.0 Web</span>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL: ELEGANT LOGIN FORM */}
+        <div className="md:w-1/2 bg-white p-8 lg:p-14 flex flex-col justify-center relative">
+          
+          {/* Header Title */}
+          <div className="mb-6">
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-slate-800 tracking-tight">
+              Iniciar Sesión
+            </h2>
+            <p className="text-sm text-slate-500 mt-1">
+              Ingresa tus credenciales para acceder al sistema SAEN.
+            </p>
+          </div>
+
+          {/* Quick Access / Role Selection Tabs */}
+          <div className="mb-6 p-1 bg-slate-100 rounded-2xl flex items-center">
+            <button
+              type="button"
+              onClick={() => { setRole('admin'); setEmail('carlosh@uttec.edu.mx'); }}
+              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 ${
+                role === 'admin'
+                  ? 'bg-white text-[#1E56A0] shadow-md shadow-slate-200'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <ShieldCheck className="w-4 h-4" />
+              Administrador / Staff
+            </button>
+            <button
+              type="button"
+              onClick={() => { setRole('alumno'); setEmail('alumno@uttec.edu.mx'); }}
+              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 ${
+                role === 'alumno'
+                  ? 'bg-white text-[#1E56A0] shadow-md shadow-slate-200'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <User className="w-4 h-4" />
+              Alumno / Tutor
+            </button>
+          </div>
+
+          {/* Success Banner Feedback */}
+          {successMsg && (
+            <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <div>
+                <p className="font-bold text-emerald-900">¡Autenticación exitosa!</p>
+                <p className="text-emerald-700">Redirigiendo a tu panel de control de SAEN...</p>
+              </div>
+            </div>
+          )}
+
+          {/* FORM */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            
+            {/* EMAIL FIELD */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Correo Electrónico
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="usuario@uttec.edu.mx"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E56A0]/20 focus:border-[#1E56A0] focus:bg-white transition"
+                />
+              </div>
+            </div>
+
+            {/* PASSWORD FIELD */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Contraseña
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Lock className="w-5 h-5" />
+                </div>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full pl-11 pr-11 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E56A0]/20 focus:border-[#1E56A0] focus:bg-white transition"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* OPTIONS ROW (Remember Me & Forgot Password) */}
+            <div className="flex items-center justify-between pt-1">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded border-slate-300 text-[#1E56A0] focus:ring-[#1E56A0]/20 accent-[#1E56A0]"
+                />
+                <span className="text-xs font-medium text-slate-600">Recordarme</span>
+              </label>
+
+              <button
+                type="button"
+                className="text-xs font-semibold text-[#1E56A0] hover:text-blue-800 hover:underline transition"
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+
+            {/* PRIMARY SUBMIT BUTTON */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3.5 px-6 mt-2 bg-gradient-to-r from-[#1E56A0] to-[#00A8CC] hover:from-[#16427D] hover:to-[#008CAE] text-white font-bold rounded-xl shadow-lg shadow-blue-900/20 active:scale-[0.99] transition duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>Autenticando...</span>
+                </>
+              ) : (
+                <>
+                  <span>Iniciar Sesión</span>
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* SECONDARY ACTION & FOOTER */}
+          <div className="mt-8 pt-6 border-t border-slate-100 text-center">
+            <p className="text-xs text-slate-500 font-medium">
+              ¿Aún no tienes una cuenta registrada en la escuela?{' '}
+              <button className="text-[#1E56A0] font-bold hover:underline ml-1">
+                Registrar nueva cuenta
+              </button>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+}

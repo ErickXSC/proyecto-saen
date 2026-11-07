@@ -1,0 +1,146 @@
+import 'package:flutter/material.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // --- SECCIÓN DEL LOGO ---
+              Image.asset(
+                'assets/logo.png',
+                height: 120,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.pool,
+                    size: 80,
+                    color: Color(0xFF1E56A0),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'SAEN',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1E56A0),
+                ),
+              ),
+              const SizedBox(height: 48),
+
+              // --- FORMULARIO ---
+              const Text(
+                'Correo electrónico',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  hintText: 'Introduce tu correo',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              const Text(
+                'Contraseña',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _passwordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  hintText: 'Introduce tu contraseña',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // --- BOTONES ---
+              ElevatedButton(
+                onPressed: () {
+                  print('Iniciando sesión con: ${_emailController.text}');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1E56A0),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  'Iniciar Sesión',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  '¿Olvidaste tu contraseña?',
+                  style: TextStyle(color: Color(0xFF1E56A0)),
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Registrar nueva cuenta',
+                  style: TextStyle(color: Color(0xFF1E56A0), fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
