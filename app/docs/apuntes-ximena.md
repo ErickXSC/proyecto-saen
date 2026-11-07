@@ -1,0 +1,4 @@
+Esta semana me toca hacer un investigacion sobre los diagramas a generar y tambien empezar con los bocetos de los diagramas siguientes:
+El Diagrama Entidad-Relacion representa la estructura conceptual del sistema, modelando las entidades principales, sus atributos clave y las relaciones que existen entre ellas.
+El Modelo Relacional transforma el esquema conceptual (DER) en una estructura logica de tablas normalizadas (hasta 3FN). Define formalmente las llaves primarias (PK), llaves foraneas (FK) y restricciones de integridad para asegurar la consistencia de los datos en el motor relacional.
+El Diccionario de Datos describe exhaustivamente la especificacion tecnica de cada campo perteneciente a las tablas del sistema.
