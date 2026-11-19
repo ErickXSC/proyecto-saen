@@ -1,0 +1,120 @@
+import React from 'react';
+import { DollarSign, CheckCircle2, ShieldAlert, Calendar, ArrowUpRight, LogOut, Droplets } from 'lucide-react';
+
+export default function AdminPayments() {
+  const paymentsList = [
+    { id: 1, name: 'Mateo Hernández López', concept: 'Mensualidad Diciembre', amount: '$650.00', date: '10 Nov 2026', status: 'Pagado' },
+    { id: 2, name: 'Sofía Ramírez Cruz', concept: 'Mensualidad Diciembre', amount: '$650.00', date: '09 Nov 2026', status: 'Pagado' },
+    { id: 3, name: 'Carlos Mendoza Ruiz', concept: 'Inscripción + Mes', amount: '$950.00', date: 'Pendiente', status: 'Atrasado' },
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans flex">
+      {/* Sidebar */}
+      <aside className="w-64 bg-[#0a3666] text-white hidden md:flex flex-col justify-between p-6 shadow-xl">
+        <div>
+          <div className="flex items-center gap-3 mb-10">
+            <div className="w-10 h-10 rounded-full bg-cyan-400/20 flex items-center justify-center border border-cyan-400/30">
+              <Droplets className="w-6 h-6 text-cyan-300" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold tracking-wider">SAEN</h1>
+              <p className="text-xs text-cyan-200">Administración</p>
+            </div>
+          </div>
+          <nav className="space-y-2">
+            <a href="/admin/dashboard" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-300 hover:bg-white/5 hover:text-white transition text-sm">
+              Dashboard
+            </a>
+            <a href="#" className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/15 text-cyan-300 font-medium text-sm">
+              <DollarSign className="w-5 h-5" /> Control de Pagos
+            </a>
+          </nav>
+        </div>
+        <div className="pt-6 border-t border-white/10">
+          <a href="/login" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-300 hover:bg-red-500/10 transition text-sm">
+            <LogOut className="w-5 h-5" /> Cerrar Sesión
+          </a>
+        </div>
+      </aside>
+
+      {/* Contenido Principal */}
+      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <header className="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-8 shadow-sm">
+          <h2 className="text-lg font-bold text-slate-800">Control Financiero y Pagos Automatizados</h2>
+          <span className="text-xs font-semibold bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full">
+            Corte Noviembre 2026
+          </span>
+        </header>
+
+        <div className="p-8 max-w-7xl w-full mx-auto space-y-6">
+          {/* Tarjetas de Resumen Financiero */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold text-slate-400 uppercase mb-1">Recaudado este Mes</p>
+                <h3 className="text-2xl font-extrabold text-slate-800">$124,500</h3>
+              </div>
+              <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                <DollarSign className="w-6 h-6" />
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold text-slate-400 uppercase mb-1">Alumnos al Corriente</p>
+                <h3 className="text-2xl font-extrabold text-[#1565c0]">221 Alumnos</h3>
+              </div>
+              <div className="p-3 bg-blue-50 text-[#1565c0] rounded-xl">
+                <CheckCircle2 className="w-6 h-6" />
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold text-slate-400 uppercase mb-1">Adeudos Activos</p>
+                <h3 className="text-2xl font-extrabold text-amber-600">27 Alumnos</h3>
+              </div>
+              <div className="p-3 bg-amber-50 text-amber-600 rounded-xl">
+                <ShieldAlert className="w-6 h-6" />
+              </div>
+            </div>
+          </div>
+
+          {/* Tabla de Historial de Transacciones */}
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h3 className="text-base font-bold text-slate-800 mb-4">Últimos Pagos Registrados en el Sistema</h3>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 text-xs text-slate-400 uppercase">
+                  <th className="py-3 px-3">Alumno</th>
+                  <th className="py-3 px-3">Concepto</th>
+                  <th className="py-3 px-3">Monto</th>
+                  <th className="py-3 px-3">Fecha de Pago</th>
+                  <th className="py-3 px-3">Estatus</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 text-sm">
+                {paymentsList.map((p) => (
+                  <tr key={p.id} className="hover:bg-slate-50">
+                    <td className="py-3.5 px-3 font-semibold text-slate-800">{p.name}</td>
+                    <td className="py-3.5 px-3 text-slate-600">{p.concept}</td>
+                    <td className="py-3.5 px-3 font-bold text-slate-800">{p.amount}</td>
+                    <td className="py-3.5 px-3 text-slate-500">{p.date}</td>
+                    <td className="py-3.5 px-3">
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                        p.status === 'Pagado' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                      }`}>
+                        {p.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}

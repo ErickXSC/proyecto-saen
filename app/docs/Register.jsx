@@ -1,0 +1,225 @@
+import React, { useState } from 'react';
+import { QrCode, CreditCard, Bot, Eye, EyeOff, Droplets, UserCheck } from 'lucide-react';
+
+export default function Register() {
+  const [role, setRole] = useState('Alumno');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    password_confirmation: '',
+  });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const roles = ['Alumno', 'Profesor', 'Administrador'];
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ role, ...formData });
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col lg:flex-row bg-slate-50 font-sans">
+      {/* Panel Izquierdo: Identidad Visual y Pilares de SAEN */}
+      <div className="lg:w-1/2 bg-gradient-to-br from-[#0a3666] via-[#0e4d92] to-[#1565c0] text-white flex flex-col justify-center items-center p-10 lg:p-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-cyan-300 via-transparent to-transparent"></div>
+
+        <div className="max-w-md w-full flex flex-col items-center text-center z-10">
+          {/* Logo SAEN */}
+          <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-6 border border-white/20 shadow-lg">
+            <Droplets className="w-12 h-12 text-cyan-300" />
+          </div>
+
+          <h1 className="text-5xl font-extrabold tracking-tight mb-2">SAEN</h1>
+          <p className="text-lg text-cyan-100 font-medium mb-12">
+            Sistema Automatizado para Escuelas de Natación
+          </p>
+
+          {/* Iconos de Características Principales */}
+          <div className="grid grid-cols-3 gap-6 w-full pt-8 border-t border-white/15">
+            <div className="flex flex-col items-center text-center">
+              <div className="p-3 bg-white/10 rounded-xl mb-3">
+                <QrCode className="w-7 h-7 text-cyan-300" />
+              </div>
+              <span className="text-xs font-medium text-blue-100 leading-tight">
+                Credencial Digital QR
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <div className="p-3 bg-white/10 rounded-xl mb-3">
+                <CreditCard className="w-7 h-7 text-cyan-300" />
+              </div>
+              <span className="text-xs font-medium text-blue-100 leading-tight">
+                Control de Pagos
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <div className="p-3 bg-white/10 rounded-xl mb-3">
+                <Bot className="w-7 h-7 text-cyan-300" />
+              </div>
+              <span className="text-xs font-medium text-blue-100 leading-tight">
+                Asistente de IA
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Panel Derecho: Formulario de Registro */}
+      <div className="lg:w-1/2 flex items-center justify-center p-6 sm:p-10">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
+          {/* Selector de Rol a Registrar */}
+          <div className="grid grid-cols-3 border-b border-slate-200 mb-6">
+            {roles.map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRole(r)}
+                className={`pb-3 text-sm font-semibold transition-all border-b-2 cursor-pointer ${
+                  role === r
+                    ? 'border-[#1565c0] text-[#1565c0]'
+                    : 'border-transparent text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+
+          <h2 className="text-2xl font-bold text-slate-800 text-center mb-1">
+            Crear Cuenta
+          </h2>
+          <p className="text-xs text-slate-500 text-center mb-6">
+            Registro de nuevo {role.toLowerCase()} en la plataforma
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Nombre Completo */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Nombre completo
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Ej. Mateo Hernández López"
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1565c0] focus:border-transparent transition text-sm"
+              />
+            </div>
+
+            {/* Correo Electrónico */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Correo electrónico
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="ejemplo@correo.com"
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1565c0] focus:border-transparent transition text-sm"
+              />
+            </div>
+
+            {/* Teléfono de Contacto */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Teléfono / Tutor
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                maxLength={10}
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="55 1234 5678"
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1565c0] focus:border-transparent transition text-sm"
+              />
+            </div>
+
+            {/* Contraseña */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Contraseña
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Mínimo 8 caracteres"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1565c0] focus:border-transparent transition pr-11 text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Confirmar Contraseña */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Confirmar contraseña
+              </label>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password_confirmation"
+                required
+                value={formData.password_confirmation}
+                onChange={handleChange}
+                placeholder="Repite tu contraseña"
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1565c0] focus:border-transparent transition text-sm"
+              />
+            </div>
+
+            {/* Botón de Registro */}
+            <button
+              type="submit"
+              className="w-full bg-[#1565c0] hover:bg-[#0e4d92] text-white font-semibold py-2.5 rounded-lg shadow-md hover:shadow-lg transition duration-200 cursor-pointer flex items-center justify-center gap-2 mt-2"
+            >
+              <UserCheck className="w-5 h-5" />
+              Registrar Cuenta
+            </button>
+          </form>
+
+          {/* Enlace para volver al Login */}
+          <div className="mt-5 text-center text-sm">
+            <span className="text-slate-500">¿Ya tienes una cuenta? </span>
+            <a
+              href="/login"
+              className="text-[#1565c0] hover:text-[#0e4d92] font-semibold transition"
+            >
+              Iniciar Sesión
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
