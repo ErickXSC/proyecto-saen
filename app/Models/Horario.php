@@ -30,13 +30,11 @@ class Horario extends Model
         return $this->belongsTo(Carril::class, 'id_carril', 'id_carril');
     }
 
-    public function inscripciones(): HasMany
+    // Relación con los alumnos inscritos (tabla pivote clases_alumnos)
+    public function alumnos()
     {
-        return $this->hasMany(ClaseAlumno::class, 'id_horario', 'id_horario');
-    }
-
-    public function asistencias(): HasMany
-    {
-        return $this->hasMany(AsistenciaAlumno::class, 'id_horario', 'id_horario');
+        return $this->belongsToMany(Alumno::class, 'clases_alumnos', 'id_horario', 'id_alumno')
+                    ->withPivot('fecha_inscripcion')
+                    ->withTimestamps();
     }
 }

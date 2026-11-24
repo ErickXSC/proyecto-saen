@@ -2,17 +2,16 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AlumnoController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\CarrilController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -37,15 +36,25 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Módulo de Alumnos
     Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
     Route::post('/alumnos', [AlumnoController::class, 'store'])->name('alumnos.store');
     Route::put('/alumnos/{alumno}', [AlumnoController::class, 'update'])->name('alumnos.update');
     Route::delete('/alumnos/{alumno}', [AlumnoController::class, 'destroy'])->name('alumnos.destroy');
 
-        // Módulo de Pagos
-    Route::get('/pagos', [\App\Http\Controllers\PagoController::class, 'index'])->name('pagos.index');
-    Route::post('/pagos', [\App\Http\Controllers\PagoController::class, 'store'])->name('pagos.store');
+    Route::get('/pagos', [PagoController::class, 'index'])->name('pagos.index');
+    Route::post('/pagos', [PagoController::class, 'store'])->name('pagos.store');
+
+    Route::get('/carriles', [CarrilController::class, 'index'])->name('carriles.index');
+    Route::put('/carriles/{carril}', [CarrilController::class, 'update'])->name('carriles.update');
+
+    Route::get('/horarios', [\App\Http\Controllers\HorarioController::class, 'index'])->name('horarios.index');
+    Route::post('/horarios', [\App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
+    Route::delete('/horarios/{horario}', [\App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
+
+    Route::get('/horarios', [\App\Http\Controllers\HorarioController::class, 'index'])->name('horarios.index');
+    Route::post('/horarios', [\App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
+    Route::delete('/horarios/{horario}', [\App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
+    Route::post('/horarios/{horario}/inscribir', [\App\Http\Controllers\HorarioController::class, 'inscribirAlumno'])->name('horarios.inscribir');
 });
 
 require __DIR__.'/auth.php';
