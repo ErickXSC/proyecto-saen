@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\CarrilController;
+use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -50,16 +52,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/horarios', [\App\Http\Controllers\HorarioController::class, 'index'])->name('horarios.index');
     Route::post('/horarios', [\App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
     Route::delete('/horarios/{horario}', [\App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
-
-    Route::get('/horarios', [\App\Http\Controllers\HorarioController::class, 'index'])->name('horarios.index');
-    Route::post('/horarios', [\App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
-    Route::delete('/horarios/{horario}', [\App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
     Route::post('/horarios/{horario}/inscribir', [\App\Http\Controllers\HorarioController::class, 'inscribirAlumno'])->name('horarios.inscribir');
 
-    Route::get('/inventario', [\App\Http\Controllers\InventarioController::class, 'index'])->name('inventario.index');
-    Route::post('/inventario', [\App\Http\Controllers\InventarioController::class, 'store'])->name('inventario.store');
-    Route::post('/inventario/{inventario}/prestar', [\App\Http\Controllers\InventarioController::class, 'prestar'])->name('inventario.prestar');
-    Route::post('/inventario/devolver/{prestamo}', [\App\Http\Controllers\InventarioController::class, 'devolver'])->name('inventario.devolver');
+    Route::get('/inventario', [InventarioController::class, 'index'])->name('inventario.index');
+    Route::post('/inventario', [InventarioController::class, 'store'])->name('inventario.store');
+    Route::post('/inventario/{inventario}/prestar', [InventarioController::class, 'prestar'])->name('inventario.prestar');
+    Route::post('/inventario/devolver/{prestamo}', [InventarioController::class, 'devolver'])->name('inventario.devolver');
+
+    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+    Route::put('/usuarios/{usuario}', [UsuarioController::class, 'update'])->name('usuarios.update');
 });
 
 require __DIR__.'/auth.php';

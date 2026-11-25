@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { LayoutDashboard, Users, CreditCard, QrCode, Bot, LogOut, ShieldAlert, Plus, DollarSign, CheckCircle, AlertCircle, Waves, Calendar, X } from 'lucide-react';
-import { LayoutDashboard, Users, CreditCard, Bot, LogOut, Waves, Calendar, Package } from 'lucide-react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { LayoutDashboard, Users, CreditCard, QrCode, Bot, LogOut, ShieldAlert, Plus, DollarSign, CheckCircle, AlertCircle, Waves, Calendar, X, Package, UserCog } from 'lucide-react';
 
 export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
     const { user } = auth;
@@ -31,7 +30,6 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
         <div className="min-h-screen bg-slate-50 font-sans flex">
             <Head title="Control de Pagos" />
 
-            {/* Sidebar */}
             <aside className="w-64 bg-[#03444A] text-white hidden md:flex flex-col justify-between p-6 shadow-xl">
                 <div>
                     <div className="flex items-center gap-3 mb-10">
@@ -55,13 +53,13 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
                             <CreditCard className="w-5 h-5" /> Control de Pagos
                         </Link>
                         <Link href={route('carriles.index')} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
-                        <Waves className="w-5 h-5" /> Carriles
+                            <Waves className="w-5 h-5" /> Carriles
                         </Link>
                         <Link href={route('horarios.index')} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
-                        <Calendar className="w-5 h-5" /> Horarios
+                            <Calendar className="w-5 h-5" /> Horarios
                         </Link>
                         <Link href={route('inventario.index')} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
-                        <Package className="w-5 h-5" /> Inventario
+                            <Package className="w-5 h-5" /> Inventario
                         </Link>
                         <Link href="#" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
                             <QrCode className="w-5 h-5" /> Asistencias QR
@@ -69,6 +67,11 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
                         <Link href="#" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
                             <Bot className="w-5 h-5" /> Asistente IA
                         </Link>
+                        {esAdmin && (
+                            <Link href={route('usuarios.index')} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
+                                <UserCog className="w-5 h-5" /> Usuarios y Roles
+                            </Link>
+                        )}
                     </nav>
                 </div>
                 <div className="pt-6 border-t border-white/10">
@@ -78,7 +81,6 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
                 </div>
             </aside>
 
-            {/* Main Content */}
             <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
                 <header className="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-8 shadow-sm">
                     <h2 className="text-lg font-bold text-[#03444A]">Control Financiero y Pagos Automatizados</h2>
@@ -93,7 +95,6 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
                 </header>
 
                 <div className="p-8 max-w-7xl w-full mx-auto space-y-6">
-                    {/* Tarjetas de Estadísticas */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
                             <div>
@@ -124,7 +125,6 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
                         </div>
                     </div>
 
-                    {/* Tabla de Pagos */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mt-6">
                         <div className="p-6 border-b border-slate-100">
                             <h3 className="text-base font-bold text-[#03444A]">Últimos Pagos Registrados</h3>
@@ -169,7 +169,6 @@ export default function PagosIndex({ auth, pagos, alumnos, conceptos, stats }) {
                 </div>
             </main>
 
-            {/* Modal de Registro de Pago */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
                     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col">
