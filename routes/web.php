@@ -32,6 +32,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -55,6 +56,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/horarios', [\App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
     Route::delete('/horarios/{horario}', [\App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
     Route::post('/horarios/{horario}/inscribir', [\App\Http\Controllers\HorarioController::class, 'inscribirAlumno'])->name('horarios.inscribir');
+
+    // Módulo de Usuarios
+    Route::get('/usuarios', [\App\Http\Controllers\UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::post('/usuarios', [\App\Http\Controllers\UsuarioController::class, 'store'])->name('usuarios.store');
+    Route::put('/usuarios/{usuario}', [\App\Http\Controllers\UsuarioController::class, 'update'])->name('usuarios.update');
 });
 
 require __DIR__.'/auth.php';

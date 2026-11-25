@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { LayoutDashboard, Users, CreditCard, QrCode, Bot, LogOut, Edit, X, Waves, Calendar } from 'lucide-react';
+import { LayoutDashboard, Users, CreditCard, QrCode, Bot, LogOut, Edit, X, Waves, Calendar, UserCog } from 'lucide-react';
 
 export default function CarrilesIndex({ auth, carriles, profesores }) {
     const { user } = auth;
@@ -74,6 +74,12 @@ export default function CarrilesIndex({ auth, carriles, profesores }) {
                         <Link href="#" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
                             <Bot className="w-5 h-5" /> Asistente IA
                         </Link>
+
+                          {esAdmin && (
+                         <Link href={route('usuarios.index')} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#9AD3DA] hover:bg-white/5 hover:text-white transition text-sm">
+                          <UserCog className="w-5 h-5" /> Usuarios y Roles
+                          </Link>
+                           )}
                     </nav>
                 </div>
                 <div className="pt-6 border-t border-white/10">
