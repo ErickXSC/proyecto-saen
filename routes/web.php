@@ -55,6 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/horarios', [\App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
     Route::delete('/horarios/{horario}', [\App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
     Route::post('/horarios/{horario}/inscribir', [\App\Http\Controllers\HorarioController::class, 'inscribirAlumno'])->name('horarios.inscribir');
+
+    Route::get('/inventario', [\App\Http\Controllers\InventarioController::class, 'index'])->name('inventario.index');
+    Route::post('/inventario', [\App\Http\Controllers\InventarioController::class, 'store'])->name('inventario.store');
+    Route::post('/inventario/{inventario}/prestar', [\App\Http\Controllers\InventarioController::class, 'prestar'])->name('inventario.prestar');
+    Route::post('/inventario/devolver/{prestamo}', [\App\Http\Controllers\InventarioController::class, 'devolver'])->name('inventario.devolver');
 });
 
 require __DIR__.'/auth.php';
